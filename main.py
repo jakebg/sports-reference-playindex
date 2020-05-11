@@ -1,12 +1,6 @@
-import requests
 from bs4 import BeautifulSoup
+import url_finder
 
-# URL = 'https://www.pro-football-reference.com/play-index/psl_finder.cgi?request=1&match=single&draft=1&year_min=2019&year_max=2019&season_start=1&season_end=-1&pos%5B%5D=qb&draft_year_min=1936&draft_year_max=2020&draft_slot_min=1&draft_slot_max=500&draft_pick_in_round=pick_overall&conference=any&draft_pos%5B%5D=qb&c1stat=pass_cmp&c1comp=gt&c2stat=pass_att&c2comp=gt&c3stat=pass_inc&c3comp=gt&c4stat=pass_cmp_perc&c4comp=gt&c5stat=pass_yds&c5comp=gt&c5val=1.0&order_by=pass_td'
-# page = requests.get(URL)
-
-# text_file = open("page.html", "wb")
-# text_file.write(page.content)
-# text_file.close()
 
 text_file = open("page.html", "r")
 
