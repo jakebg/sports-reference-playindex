@@ -1,4 +1,3 @@
-import requests
 '''
 'https://www.pro-football-reference.com/play-index/psl_finder.cgi?request=1&
 match=single&                           MATCH               = single, combined, total
@@ -43,7 +42,8 @@ offset=100                              OFFSET              = table offset, 0 = 
 # text_file = open("page.html", "wb")
 # text_file.write(page.content)
 # text_file.close()
-amp = '&'
+
+
 # INPUTS
 match_choice        = 'single'
     # from year
@@ -93,32 +93,10 @@ dict = { 'match_choice'     : match_choice,
         'order_by_stat'     : order_by_stat,
         }
 
-# # URL CREATION
-# main_url            = 'https://www.pro-football-reference.com/'
-# play_index          = 'play-index/psl_finder.cgi?request=1&'
-# MATCH               = 'match=' + match_choice + '&'
-# DRAFT               = 'draft=1&'
-# YEAR_MIN            = 'year_min=' + first_year + '&'
-# YEAR_MAX            = 'year_max=' + last_year + '&'
-# SEASON_START        = 'season_start=' + season_start_int + '&'
-# SEASON_END          = 'season_end='+ season_end_int + '&'
-# POSITION            = 'pos[]=' + position_id + '&'
-# DRAFT_YEAR_MIN      = 'draft_year_min=' + draft_year_begin + '&'
-# DRAFT_YEAR_MAX      = 'draft_year_max=' + draft_year_end + '&'
-# DRAFT_SLOT_MIN      = 'draft_slot_min=' + draft_slot_begin + '&'
-# DRAFT_SLOT_MAX      = 'draft_slot_max=' + draft_slot_end + '&'
-# DRAFT_PICK_IN_ROUND = 'draft_pick_in_round=' + draft_pick_round + '&'
-# DRAFT_CONFERENCE    = 'conference=' + draft_college_conf + '&'
-# DRAFT_POSITION      = 'draft_pos[]=' + draft_college_pos + '&'
-# ### EXTRA STATS HERE
-# ### END EXTRA STATS
-# ORDER_BY            = 'order_by=' + order_by_stat + '&'
-
 ''' 
 Creates a url given a dictionary
 
-        Parameters 
-        ----------
+    Parameters 
         input_dict : 
             match_choice : 
 
@@ -159,8 +137,8 @@ Creates a url given a dictionary
             order_by_stat
                 order table by a certain stat
 
-        Returns
-            a url that redirects to sports reference page
+    Returns
+        a url that redirects to sports reference page
 
 '''
 def create_url(input_dict):
@@ -181,14 +159,25 @@ def create_url(input_dict):
     DRAFT_CONFERENCE    = 'conference=' + input_dict['draft_college_conf'] + '&'
     DRAFT_POSITION      = 'draft_pos[]=' + input_dict['draft_college_pos'] + '&'
     ### EXTRA STATS HERE
+
     ### END EXTRA STATS
     ORDER_BY            = 'order_by=' + input_dict['order_by_stat'] + '&'
+
+    #offset_value = int(input_dict['offset'])
+    
     
     full_url = main_url + play_index + MATCH + DRAFT + YEAR_MAX + YEAR_MIN + SEASON_START + SEASON_END +\
     POSITION + DRAFT_YEAR_MIN + DRAFT_YEAR_MAX + DRAFT_SLOT_MIN + DRAFT_SLOT_MAX + DRAFT_PICK_IN_ROUND +\
     DRAFT_CONFERENCE + DRAFT_POSITION + ORDER_BY
+
+    #offset_loop(offset_value, full_url)
     return full_url
 
+# Sports reference offset is set by 100 table rows in one page. 
+# Have to loop through offsets to get all table entries
+def offset_loop(OFFSET, full_url):
+
+    pass
 
 # TEST DICT
 test_dict = {'match_choice' : 'single', 
