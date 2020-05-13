@@ -75,7 +75,7 @@ draft_college_pos   = 'qb' # could chain multiple position
 
 # order table by
 order_by_stat       = 'pass_td'
-
+offset             = '000'
 
 dict = { 'match_choice'     : match_choice, 
         'first_year'        : first_year, 
@@ -91,6 +91,7 @@ dict = { 'match_choice'     : match_choice,
         'draft_college_conf': draft_college_conf,
         'draft_college_pos' : draft_college_pos,
         'order_by_stat'     : order_by_stat,
+        'offset'            : offset,
         }
 
 ''' 
@@ -162,22 +163,44 @@ def create_url(input_dict):
 
     ### END EXTRA STATS
     ORDER_BY            = 'order_by=' + input_dict['order_by_stat'] + '&'
-
-    #offset_value = int(input_dict['offset'])
     
+
+
+        
     
     full_url = main_url + play_index + MATCH + DRAFT + YEAR_MAX + YEAR_MIN + SEASON_START + SEASON_END +\
     POSITION + DRAFT_YEAR_MIN + DRAFT_YEAR_MAX + DRAFT_SLOT_MIN + DRAFT_SLOT_MAX + DRAFT_PICK_IN_ROUND +\
     DRAFT_CONFERENCE + DRAFT_POSITION + ORDER_BY
 
-    #offset_loop(offset_value, full_url)
+
+    ### TESTING OFFSET
+    OFFSET_NUMBER   = input_dict['offset']
+
+    OFFSET              = 'offset=' + OFFSET_NUMBER
+
+    full_url += OFFSET
+
+    print(full_url)
     return full_url
 
 # Sports reference offset is set by 100 table rows in one page. 
 # Have to loop through offsets to get all table entries
-def offset_loop(OFFSET, full_url):
+def offset_loop(input_dict):
+    OFFSET_NUMBER   = input_dict['offset']
+    offset_int = int(int(OFFSET_NUMBER)/100)
 
-    pass
+    url_list = []
+
+    for x in range(offset_int):
+        input_dict['offset'] = str(x*100)
+        url_list.append(create_url(input_dict))
+    return url_list
+
+
+
+
+
+
 
 # TEST DICT
 test_dict = {'match_choice' : 'single', 
@@ -196,10 +219,10 @@ test_dict = {'match_choice' : 'single',
         'order_by_stat' : 'pass_td',
         }
 
-test_url = create_url(test_dict)
+# test_url = create_url(test_dict)
 
-if test_url != 'https://www.pro-football-reference.com/play-index/psl_finder.cgi?request=1&match=single&draft=1&year_max=2019&year_min=2010&season_start=1&season_end=-1&pos[]=qb&draft_year_min=1936&draft_year_max=2020&draft_slot_min=1&draft_slot_max=500&draft_pick_in_round=pick_overall&conference=any&draft_pos[]=qb&order_by=pass_td&':
-    raise Exception('NO GOOD')
+# if test_url != 'https://www.pro-football-reference.com/play-index/psl_finder.cgi?request=1&match=single&draft=1&year_max=2019&year_min=2010&season_start=1&season_end=-1&pos[]=qb&draft_year_min=1936&draft_year_max=2020&draft_slot_min=1&draft_slot_max=500&draft_pick_in_round=pick_overall&conference=any&draft_pos[]=qb&order_by=pass_td&':
+#     raise Exception('NO GOOD')
 
-another = create_url(dict)
-print(another)
+#another = create_url(dict)
+#print(another)
